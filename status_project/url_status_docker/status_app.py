@@ -16,7 +16,11 @@ def web_url():
     try:
         urlcheck = requests.get(processed_url)
         code = urlcheck.status_code
-        return render_template('webpage.html', url = processed_url,  status=code)
+        if code == 200:
+            return render_template('webpage.html', url = processed_url,  status=code, availability = 'The website you specified is availble!')
+        else:
+            return render_template('webpage.html', url = processed_url, status=code,
+                                   availability = 'The website you specified returned {}!'.format(code))
     except ConnectionError:
         return render_template('webpage.html', url = processed_url, status = 'The website does not exist')
     except MissingSchema:
@@ -24,9 +28,4 @@ def web_url():
 
 if __name__=='__main__':
     app.run(host='0.0.0.0')
-#    statuscheck(processed_url)
-
-#def statuscheck(url_check):
-#    request = requests.get(url_check)
-#    print(request.status_code)
 
