@@ -4,9 +4,10 @@ from requests.exceptions import ConnectionError, MissingSchema
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/') #If the user comes on /path, it gets redirected to webpage.htm saved under templates directory
+
 def webpage():
-    return render_template('webpage.html')
+    return render_template('webpage.html')# render_template will render and display the specified html page
 
 @app.route('/', methods=['POST'])
 def web_url():
