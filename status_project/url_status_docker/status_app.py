@@ -19,9 +19,9 @@ def requesturl(processed_url):
         return render_template('webpage.html', url = processed_url,  status=code, availability = 'The website you specified is availble!', cache = \
                                url_dict.items())
     else:
-        url_dict[processed_url]['availability']='The site returned{}'.format(code)
+        url_dict[processed_url]['availability']='The site returned {}'.format(code)
         return render_template('webpage.html', url = processed_url, status=code,
-                               availability = 'The website you specified returned {}!'.format(code), cache = url_dict.keys())
+                               availability = 'The website you specified returned {}!'.format(code), cache = url_dict.items())
     
 @app.route('/') #If the user comes on /path, it gets redirected to webpage.htm saved under templates directory
 def webpage():
@@ -36,7 +36,7 @@ def web_url():
             if url_dict[processed_url]['time']- int(time.time()) > 600:
                 return requesturl(processed_url)
             else:
-                return render_template('webpage.html', url = processed_url, status=url_dict[processed_url]['code'], availability = url_dict[processed_url]['availability'], cache = url_dict.keys())
+                return render_template('webpage.html', url = processed_url, status=url_dict[processed_url]['code'], availability = url_dict[processed_url]['availability'], cache = url_dict.items())
         else:
             return requesturl(processed_url)
     except ConnectionError:
